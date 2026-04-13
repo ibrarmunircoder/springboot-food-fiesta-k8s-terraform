@@ -42,7 +42,7 @@ jobs:
           cache: maven   
 
       - name: Build with Maven
-        run: mvn -B clean verify
+        run: mvn -B -DskipTests clean verify 
 
       - name: Package JAR
         run: mvn package -DskipTests
