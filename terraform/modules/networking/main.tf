@@ -37,7 +37,7 @@ resource "aws_subnet" "private_subnet" {
   tags = {
     "Name"                                                 = "${var.env}-private-${element(var.azs, count.index)}"
     "kubernetes.io/role/internal-elb"                      = "1"
-    "kubernetes.io/cluster/${local.env}-${local.eks_name}" = "owned"
+    "kubernetes.io/cluster/${var.env}-${var.cluster_name}" = "owned"
   }
 }
 
@@ -50,14 +50,14 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_subnet" "public_subnet" {
   count                   = local.create_public_subnets ? local.len_public_subnets : 0
   vpc_id                  = local.vpc_id
-  cidr_block              = element(var.private_subnet_cirds, count.index)
+  cidr_block              = element(var.public_subnet_cirds, count.index)
   availability_zone       = element(var.azs, count.index)
   map_public_ip_on_launch = true
 
   tags = {
     "Name"                                                 = "${var.env}-public-${element(var.azs, count.index)}"
     "kubernetes.io/role/elb"                               = "1"
-    "kubernetes.io/cluster/${local.env}-${local.eks_name}" = "owned"
+    "kubernetes.io/cluster/${var.env}-${var.cluster_name}" = "owned"
   }
 }
 

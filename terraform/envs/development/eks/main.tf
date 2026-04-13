@@ -1,6 +1,6 @@
 resource "aws_iam_role" "eks" {
   name = "${local.env}-${local.cluster_name}-cluster-role"
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -29,6 +29,8 @@ resource "aws_eks_cluster" "eks" {
     endpoint_public_access  = true
 
     subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+
+    security_group_ids = [data.terraform_remote_state.vpc.outputs.eks_sg_id]
   }
 
   access_config {
@@ -40,10 +42,15 @@ resource "aws_eks_cluster" "eks" {
 }
 
 
+###############################
+# EKS Node Group
+###############################
+
+
 resource "aws_iam_role" "nodes" {
   name = "${local.env}-${local.cluster_name}-eks-node-role"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -108,4 +115,14 @@ resource "aws_eks_node_group" "general" {
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
   }
+}
+
+###############################
+# EKS Pod identity agent addon
+###############################
+
+resource "aws_eks_addon" "pod_identity" {
+  cluster_name  = aws_eks_cluster.eks.name
+  addon_name    = "eks-pod-identity-agent"
+  addon_version = "v1.3.10-eksbuild.2"
 }
