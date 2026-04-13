@@ -58,7 +58,7 @@ jobs:
           ECR_REPOSITORY: ${{ env.IMAGE_REPOSITORY  }}
           IMAGE_TAG: ${{ steps.release.outputs.new-tag }}
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG . 
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
       
       - name: Run the postgres container
         run: |
@@ -67,10 +67,10 @@ jobs:
       - name: Run the application
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ github.repository }}
+          ECR_REPOSITORY: ${{ env.IMAGE_REPOSITORY }}
           IMAGE_TAG: ${{ steps.release.outputs.new-tag }}
         run: |
-          docker run -d --name food-fiesta --env SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/foodfiesta --env SPRING_DATASOURCE_PASSWORD=password --env SPRING_DATASOURCE_USERNAME=postgres --network "host" -p 8080:8080 $ECR_REPOSITORY:$IMAGE_TAG
+          docker run -d --name food-fiesta --env SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/foodfiesta --env SPRING_DATASOURCE_PASSWORD=password --env SPRING_DATASOURCE_USERNAME=postgres --network "host" -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Run the smoke test
         run: |
@@ -79,9 +79,8 @@ jobs:
       - name: Build, tag, and push Docker image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ github.repository }}
+          ECR_REPOSITORY: ${{ env.IMAGE_REPOSITORY }}
           IMAGE_TAG: ${{ steps.release.outputs.new-tag }}
         run: |
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
