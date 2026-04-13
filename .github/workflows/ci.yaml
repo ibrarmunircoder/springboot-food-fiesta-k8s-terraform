@@ -58,7 +58,6 @@ jobs:
           ECR_REPOSITORY: ${{ env.IMAGE_REPOSITORY  }}
           IMAGE_TAG: ${{ steps.release.outputs.new-tag }}
         run: |
-          ls -l
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
       
       - name: Run the postgres container
