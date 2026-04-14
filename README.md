@@ -8,6 +8,9 @@
 ![Docker](https://img.shields.io/badge/Container-Docker-2496ED?logo=docker)
 
 
+---
+
+
 ### 📌 Project Overview:
 
 The Food Fiesta project is a **cloud-native**, full-stack food ordering application built with **Spring Boot** and deployed to **AWS EKS** using a modern **GitOps** workflow. The project serves as a comprehensive demonstration of Infrastructure as Code (IaC) with **Terraform**, automated CI/CD via **GitHub Actions**, and progressive delivery using **ArgoCD and Argo Rollouts**.
@@ -104,6 +107,14 @@ The Food Fiesta project is a **cloud-native**, full-stack food ordering applicat
 - Integrate **AWS Certificate Manager (ACM)** certificates with Kubernetes Ingress using annotations  
 - Understand the difference between **IP mode and Node mode** in AWS Load Balancer Controller 
 - Learn how to implement **EKS Pod Identity** to allow Kubernetes Pods to securely access AWS services by assuming IAM roles  
+
+
+---
+
+
+### Create EKS Cluster using Console
+
+[Create EKS Cluster using Management Console Step by Step Guide](./CREATE_CLUSTER.md)
 
 
 ---
