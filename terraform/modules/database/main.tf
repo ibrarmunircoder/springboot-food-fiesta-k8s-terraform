@@ -38,7 +38,7 @@ resource "aws_db_instance" "this" {
   publicly_accessible = false
   password               = random_string.password.result
   db_subnet_group_name   = aws_db_subnet_group.this.name
-  vpc_security_group_ids = [aws_security_group.db_sg.id]
+  vpc_security_group_ids = [var.sg_id]
   skip_final_snapshot    = true
   multi_az               = var.is_production_env
   parameter_group_name = aws_db_parameter_group.this.name
