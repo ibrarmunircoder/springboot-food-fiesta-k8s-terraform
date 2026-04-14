@@ -7,13 +7,13 @@ authScripts:
   scripts:
     auth.sh: |
       #!/bin/sh
-      aws ecr --region us-east-2 get-authorization-token --output text --query 'authorizationData[].authorizationToken' | base64 -d
+      aws ecr --region us-east-1 get-authorization-token --output text --query 'authorizationData[].authorizationToken' | base64 -d
 
 config:
   registries:
   - name: ECR
     api_url: https://287773672913.dkr.ecr.us-east-1.amazonaws.com
-    prefix: 287773672913.dkr.ecr.us-east-1.amazonaws.com/food-fiesta
+    prefix: 287773672913.dkr.ecr.us-east-1.amazonaws.com
     ping: yes
     insecure: no
     # the image updater will run this token every time token expires.

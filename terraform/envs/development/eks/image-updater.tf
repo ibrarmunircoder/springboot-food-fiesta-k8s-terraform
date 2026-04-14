@@ -38,7 +38,7 @@ resource "helm_release" "updater" {
   chart            = "argocd-image-updater"
   namespace        = "argocd"
   create_namespace = true
-  version          = "1.1.4"
+  version          = "0.12.3"
 
   values = [templatefile("values/image-updater.yaml.tmp", {
     serviceAccount: local.image_updater_service_account_name
