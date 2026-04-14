@@ -67,7 +67,6 @@ The Food Fiesta project is a **cloud-native**, full-stack food ordering applicat
 
 ---
 
-
 ### ✨ Key Features
 
 - End-to-end **CI/CD automation** from code commit to production deployment  
@@ -83,6 +82,8 @@ The Food Fiesta project is a **cloud-native**, full-stack food ordering applicat
 - Secure configuration management using **AWS Systems Manager (Parameter Store)**  
 - TLS-enabled Ingress using **AWS Certificate Manager (ACM)**  
 - External traffic routing via **AWS Load Balancer Controller (Ingress)**  
+- Secure AWS access from Kubernetes workloads using **EKS Pod Identity** (IAM role association for Pods) 
+- Semantic version management for the application using **GitHub Actions, GitHub Tag, and Bash scripts**  
 
 ---
 
@@ -94,7 +95,6 @@ The Food Fiesta project is a **cloud-native**, full-stack food ordering applicat
 - Learn to build and manage **CI/CD pipelines using GitHub Actions**  
 - Implement **GitOps workflows** using ArgoCD  
 - Explore **Kubernetes concepts** including deployments, services, and ingress  
-- Learn **containerization best practices** using Docker  
 - Understand **progressive delivery techniques** with Argo Rollouts  
 - Gain practical experience deploying applications on **AWS EKS**  
 - Understand how **ArgoCD Image Updater Git write-back method** works  
@@ -102,7 +102,8 @@ The Food Fiesta project is a **cloud-native**, full-stack food ordering applicat
 - Learn how to configure the **Terraform Helm Provider** to authenticate with AWS EKS  
 - Implement the **ArgoCD App of Apps pattern** for managing multiple applications  
 - Integrate **AWS Certificate Manager (ACM)** certificates with Kubernetes Ingress using annotations  
-- Understand the difference between **IP mode and Node mode** in AWS Load Balancer Controller  
+- Understand the difference between **IP mode and Node mode** in AWS Load Balancer Controller 
+- Learn how to implement **EKS Pod Identity** to allow Kubernetes Pods to securely access AWS services by assuming IAM roles  
 
 
 ---
